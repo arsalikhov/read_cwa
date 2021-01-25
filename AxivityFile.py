@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 # Author: Arslan Salikhov
 # Date : January 25th, 2021
 
@@ -38,7 +35,7 @@ class AxivityFile:
             "accrange": None,
             "hardwareType": None}   
 
-        # data read from fil
+        # data read from file
         self.data = {
             "time": [],
             "gx": [],
@@ -53,12 +50,10 @@ class AxivityFile:
 
     def CWAtoPandas(self, update = True):
         """
+
         CWAtoPandas() converts the raw Axivity .cwa file
 
-        Returns:
-            [type]: [description]
         """        
-
 
         start_time = time.time()
 
@@ -173,3 +168,5 @@ class AxivityFile:
         
         print(round(time.time() - start_time, 2), " seconds took to run the code")
         return meta, data
+
+
