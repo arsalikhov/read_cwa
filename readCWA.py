@@ -14,6 +14,7 @@ import time
 
 class readCWA:
   
+  
   path = os.getcwd()
 
   path_to_cwa = path + r'\007_AxTest.cwa'
@@ -22,6 +23,8 @@ class readCWA:
 
   def CWAtoPandas(self):
     
+
+
     start_time = time.time()
 
     print("Initiating R environment")

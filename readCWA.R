@@ -3,7 +3,7 @@ read_cwa = function(file, end = Inf, convert_time = TRUE, verbose = TRUE,
   ext = tools::file_ext(file)
   ext = tolower(ext)
   args = list(
-    fileName = file, start = 0, end = end, progressBar = verbose_nomax,
+    fileName = file, start = 0, end = end, progressBar = verbose,
     ...)
   if (is.null(args$desiredtz)) {
     args$desiredtz = tz
@@ -30,3 +30,12 @@ read_cwa = function(file, end = Inf, convert_time = TRUE, verbose = TRUE,
   
   return(res)
 }
+
+
+P = read_cwa("007_AxTest.cwa", end = 710000)
+
+df <- as.data.frame(P[["data"]])
+
+h <-(P[["header"]])
+
+h
