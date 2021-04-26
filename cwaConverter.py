@@ -38,15 +38,9 @@ def ax_to_edf(input_file_path, input_file_name, accelerometer_dir):
 
     axivity = AxivityFile(input_file_path)
     axivity.CWAtoPandas(update= True)
-<<<<<<< HEAD:cwaConverter.py
     accelerometer_file_name = input_file_name + "_Accelerometer.edf"
     temperature_file_name = input_file_name + "_Temperature.edf"
     gyro_file_name = input_file_name + "_Gyroscope.edf"
-=======
-    accelerometer_file_name = "accel.edf"
-    temperature_file_name = "temp.edf"
-    gyro_file_name = "gyro.edf"
->>>>>>> 4a8093ce0e4dfccc71d8b4f3e341d7573ae6f3df:ax_to_edf.py
     device_location = "chest"
 
     physical_maxX = axivity.data['x'].max()
