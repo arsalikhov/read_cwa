@@ -6,6 +6,8 @@ import datetime
 import os
 import numpy as np
 
+path = os.getcwd()
+
 
 def ax_to_edf(input_file_path, input_file_name, accelerometer_dir):
     """Converts data and metadata dictionaries extracted from .cwa file into edf.
@@ -156,5 +158,5 @@ def ax_to_edf(input_file_path, input_file_name, accelerometer_dir):
     temperature_file.writeSamples([np.array(axivity.data['temp'])])
     temperature_file.close()
 
-ax_to_edf(r"C:\Users\Arslan\Documents\CWAconvert\test_files\007_AxTest.cwa", '007_AxTest.cwa', r"C:\Users\Arslan\Documents\CWAconvert\out")
+ax_to_edf(path + r"\test_files\007_AxTest.cwa", '007_AxTest.cwa', path + r"\out")
 
