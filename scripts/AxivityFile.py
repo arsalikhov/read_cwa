@@ -112,16 +112,39 @@ class AxivityFile:
         }
         P = read_cwa(path_to_cwa, verbose = FALSE)
         df <- as.data.frame(P[["data"]])
-        meta <-as.data.frame(P[["header"]]) 
+        df.list <- as.list(df)
+
+        gx <- df.list[['gx']]
+        gy <- df.list[['gy']]
+        gz <- df.list[['gz']]
+        x <- df.list[['x']]
+        y <- df.list[['y']]
+        z <- df.list[['z']]
+        temp <- df.list[['temp']]
+
+        meta <-as.data.frame(P[["header"]])  
         """)
 
         print("Completed the R script")
 
 
         print("Converting R objects to Python objects")
-        data = robjects.globalenv['df']
+        gx = robjects.globalenv['gx']
+        gy = robjects.globalenv['gy']
+        gz = robjects.globalenv['gz']
+        x = robjects.globalenv['x']
+        y = robjects.globalenv['y']
+        z = robjects.globalenv['z']
+        temp = robjects.globalenv['temp']
         meta = robjects.globalenv['meta']
-        finaldata = robjects.conversion.rpy2py(data)
+
+        gx = robjects.conversion.rpy2py(gx)
+        gy = robjects.conversion.rpy2py(gy)
+        gz = robjects.conversion.rpy2py(gz)
+        x = robjects.conversion.rpy2py(x)
+        y = robjects.conversion.rpy2py(y)
+        z = robjects.conversion.rpy2py(z)
+        temp = robjects.conversion.rpy2py(temp)
         meta = robjects.conversion.rpy2py(meta)
         print("Conversion completed")
 
@@ -135,17 +158,13 @@ class AxivityFile:
             "accrange": meta["accrange"][0],
             "hardwareType": meta["hardwareType"][0]}
 
-        data = {
-            "time": np.array(finaldata["time"]),
-            "gx": np.array(finaldata["gx"]),
-            "gy": np.array(finaldata["gy"]),
-            "gz": np.array(finaldata["gz"]),
-            "x": np.array(finaldata["x"]),
-            "y": np.array(finaldata["y"]),
-            "z": np.array(finaldata["z"]),
-            "temp": np.array(finaldata["temp"]),
-            "battery": np.array(finaldata["battery"]),
-            "light": np.array(finaldata["light"])}
+        data = {"gx": gx,
+            "gy": gy,
+            "gz": gz,
+            "x": x,
+            "y": y,
+            "z": z,
+            "temp": temp}
 
 
         if update: self.data = data
