@@ -32,7 +32,7 @@ read_cwa = function(file, end = Inf, convert_time = TRUE, verbose = TRUE,
 }
 
 
-P = read_cwa("007_AxTest.cwa")
+P = read_cwa("test_files/Clock1_Axivity.cwa")
 
 df <- as.data.frame(P[["data"]])
 

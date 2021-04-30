@@ -6,7 +6,6 @@ import datetime
 import os
 import numpy as np
 
-path = os.getcwd()
 
 
 def ax_to_edf(input_file_path, input_file_name, accelerometer_dir):
@@ -73,7 +72,7 @@ def ax_to_edf(input_file_path, input_file_name, accelerometer_dir):
                                     "admincode": "",
                                     "gender": "male",
                                     "startdate": axivity.file_info["start"],
-                                    "birthdate": datetime.datetime(1999, 8, 28)})
+                                    "birthdate": datetime.datetime(1969, 4, 20)})
 
     accelerometer_file.setSignalHeader(0, {"label": "Accelerometer x", "dimension": "g",
                                             "sample_rate": axivity.file_info['frequency'],
@@ -110,7 +109,7 @@ def ax_to_edf(input_file_path, input_file_name, accelerometer_dir):
                                 "admincode": "",
                                 "gender": "male",
                                 "startdate": axivity.file_info["start"],
-                                "birthdate": datetime.datetime(1999, 8, 28)})
+                                "birthdate": datetime.datetime(1969, 4, 20)})
 
     gyroscope_file.setSignalHeader(0, {"label": "gyroscope x", "dimension": "degree/s",
                                             "sample_rate": axivity.file_info['frequency'],
@@ -147,7 +146,7 @@ def ax_to_edf(input_file_path, input_file_name, accelerometer_dir):
                                     "admincode": "",
                                     "gender": "male",
                                     "startdate": axivity.file_info["start"],
-                                    "birthdate": datetime.datetime(1999, 8, 28)})
+                                    "birthdate": datetime.datetime(1969, 4, 20)})
 
     temperature_file.setSignalHeader(0, {"label": "Temperature", "dimension": "celsius", "sample_rate": 100, #Actual sample rate = 0.25
                                             "physical_max": 40,
@@ -158,5 +157,5 @@ def ax_to_edf(input_file_path, input_file_name, accelerometer_dir):
     temperature_file.writeSamples([np.array(axivity.data['temp'])])
     temperature_file.close()
 
-ax_to_edf(path + r"\test_files\007_AxTest.cwa", '007_AxTest.cwa', path + r"\out")
+ax_to_edf(r"C:\Users\Arslan\Documents\CWAconvert\test_files\007_AxTest.cwa", '007_AxTest.cwa', r"C:\Users\Arslan\Documents\CWAconvert\out")
 
