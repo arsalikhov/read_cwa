@@ -32,21 +32,35 @@ read_cwa = function(file, end = Inf, convert_time = TRUE, verbose = TRUE,
 }
 
 
-P = read_cwa("test_files/Clock1_Axivity.cwa")
+P = read_cwa("test_files/007_AxTest.cwa")
 
 df <- as.data.frame(P[["data"]])
 
+print(ncol(df))
+
+
+
 df.list <- as.list(df)
 
-df.list
+df.lis
 
-gx <- df.list[['gx']]
-gy <- df.list[['gy']]
-gz <- df.list[['gz']]
-x <- df.list[['x']]
-y <- df.list[['y']]
-z <- df.list[['z']]
-temp <- df.list[['temp']]
+if (ncol(df) = 10) {
+  gx <- df.list[['gx']]
+  gy <- df.list[['gy']]
+  gz <- df.list[['gz']]
+  x <- df.list[['x']]
+  y <- df.list[['y']]
+  z <- df.list[['z']]
+  temp <- df.list[['temp']]
+  gyro <- 1
+} else if (ncol(df) = 7) {
+  x <- df.list[['x']]
+  y <- df.list[['y']]
+  z <- df.list[['z']]
+  temp <- df.list[['temp']]
+  gyro <- 0
+}
+
 
 h <-(P[["header"]])
 

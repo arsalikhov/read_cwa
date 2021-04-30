@@ -114,41 +114,56 @@ class AxivityFile:
         df <- as.data.frame(P[["data"]])
         df.list <- as.list(df)
 
-        gx <- df.list[['gx']]
-        gy <- df.list[['gy']]
-        gz <- df.list[['gz']]
-        x <- df.list[['x']]
-        y <- df.list[['y']]
-        z <- df.list[['z']]
-        temp <- df.list[['temp']]
+        if (ncol(df) = 10) {
+            gx <- df.list[['gx']]
+            gy <- df.list[['gy']]
+            gz <- df.list[['gz']]
+            x <- df.list[['x']]
+            y <- df.list[['y']]
+            z <- df.list[['z']]
+            temp <- df.list[['temp']]
+            gyro <- 1
+        } else if (ncol(df) = 7) {
+            x <- df.list[['x']]
+            y <- df.list[['y']]
+            z <- df.list[['z']]
+            temp <- df.list[['temp']]
+            gyro <- 0
+        }
+
 
         meta <-as.data.frame(P[["header"]])  
         """)
 
         print("Completed the R script")
 
+        gyro = robjects.globalenv['gyro']
+        gyro = robjects.conversion.rpy2py(gyro)
 
-        print("Converting R objects to Python objects")
-        gx = robjects.globalenv['gx']
-        gy = robjects.globalenv['gy']
-        gz = robjects.globalenv['gz']
-        x = robjects.globalenv['x']
-        y = robjects.globalenv['y']
-        z = robjects.globalenv['z']
-        temp = robjects.globalenv['temp']
-        meta = robjects.globalenv['meta']
+        if gyro == 1:
 
-        gx = robjects.conversion.rpy2py(gx)
-        gy = robjects.conversion.rpy2py(gy)
-        gz = robjects.conversion.rpy2py(gz)
-        x = robjects.conversion.rpy2py(x)
-        y = robjects.conversion.rpy2py(y)
-        z = robjects.conversion.rpy2py(z)
-        temp = robjects.conversion.rpy2py(temp)
-        meta = robjects.conversion.rpy2py(meta)
-        print("Conversion completed")
 
-        meta = {
+            print("Converting R objects to Python objects")
+            gx = robjects.globalenv['gx']
+            gy = robjects.globalenv['gy']
+            gz = robjects.globalenv['gz']
+            x = robjects.globalenv['x']
+            y = robjects.globalenv['y']
+            z = robjects.globalenv['z']
+            temp = robjects.globalenv['temp']
+            meta = robjects.globalenv['meta']
+
+            gx = robjects.conversion.rpy2py(gx)
+            gy = robjects.conversion.rpy2py(gy)
+            gz = robjects.conversion.rpy2py(gz)
+            x = robjects.conversion.rpy2py(x)
+            y = robjects.conversion.rpy2py(y)
+            z = robjects.conversion.rpy2py(z)
+            temp = robjects.conversion.rpy2py(temp)
+            meta = robjects.conversion.rpy2py(meta)
+            print("Conversion completed")
+
+            meta = {
             "uniqueSerialCode": int(meta["uniqueSerialCode"][0]),
             "frequency": int(meta["frequency"][0]),
             "start": meta["start"][0],
@@ -158,7 +173,7 @@ class AxivityFile:
             "accrange": meta["accrange"][0],
             "hardwareType": meta["hardwareType"][0]}
 
-        data = {"gx": gx,
+            data = {"gx": gx,
             "gy": gy,
             "gz": gz,
             "x": x,
@@ -166,22 +181,51 @@ class AxivityFile:
             "z": z,
             "temp": temp}
 
+        
+        elif gyro == 0:
+
+            print("Converting R objects to Python objects")
+
+            x = robjects.globalenv['x']
+            y = robjects.globalenv['y']
+            z = robjects.globalenv['z']
+            temp = robjects.globalenv['temp']
+            meta = robjects.globalenv['meta']
+
+            x = robjects.conversion.rpy2py(x)
+            y = robjects.conversion.rpy2py(y)
+            z = robjects.conversion.rpy2py(z)
+            temp = robjects.conversion.rpy2py(temp)
+            meta = robjects.conversion.rpy2py(meta)
+            print("Conversion completed")
+
+            meta = {
+            "uniqueSerialCode": int(meta["uniqueSerialCode"][0]),
+            "frequency": int(meta["frequency"][0]),
+            "start": meta["start"][0],
+            "device": meta["device"][0],
+            "firmwareVersion": meta["firmwareVersion"][0],
+            "blocks": meta["blocks"][0],
+            "accrange": meta["accrange"][0],
+            "hardwareType": meta["hardwareType"][0]}
+
+            data = {
+            "x": x,
+            "y": y,
+            "z": z,
+            "temp": temp}
+
+        
+
+
+
+
 
         if update: self.data = data
         if update: self.file_info = meta
 
 
-        # gyroscope_columns = ["time", 'gx', 'gy', 'gz']
-        # accelerometer_columns = ["time", 'x', 'y', 'z']
-        # temperature_columns = ["time", 'temp']
-        # light_columns = ["time", 'light']
-
-        # gyroscope = pd.DataFrame(finaldata, columns=gyroscope_columns)
-        # accelerometer = pd.DataFrame(finaldata, columns=accelerometer_columns)
-        # temperature = pd.DataFrame(finaldata, columns=temperature_columns)
-        # light = pd.DataFrame(finaldata, columns=light_columns)
-
         
         print(round(time.time() - start_time, 2), " seconds took to run the code")
-        return meta, data
+        return meta, data, gyro
 
