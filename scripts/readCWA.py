@@ -17,7 +17,7 @@ class readCWA:
   
   path = os.getcwd()
 
-  path_to_cwa = path + r'\007_AxTest.cwa'
+  path_to_cwa = path + r'\test_files\007_RA_Axivity.cwa'
   robjects.globalenv['path_to_cwa'] = path_to_cwa
 
 

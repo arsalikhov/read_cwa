@@ -77,7 +77,6 @@ class AxivityFile:
 
         print("Running the R script")
 
-
         robjects.r("""
         read_cwa = function(file, end = Inf, convert_time = TRUE, verbose = TRUE,
                         tz = "", ...) {
@@ -114,7 +113,7 @@ class AxivityFile:
         df <- as.data.frame(P[["data"]])
         df.list <- as.list(df)
 
-        if (ncol(df) = 10) {
+        if (ncol(df) == 10) {
             gx <- df.list[['gx']]
             gy <- df.list[['gy']]
             gz <- df.list[['gz']]
@@ -123,7 +122,7 @@ class AxivityFile:
             z <- df.list[['z']]
             temp <- df.list[['temp']]
             gyro <- 1
-        } else if (ncol(df) = 7) {
+        } else if (ncol(df) == 7) {
             x <- df.list[['x']]
             y <- df.list[['y']]
             z <- df.list[['z']]
@@ -215,11 +214,6 @@ class AxivityFile:
             "z": z,
             "temp": temp}
 
-        
-
-
-
-
 
         if update: self.data = data
         if update: self.file_info = meta
@@ -227,5 +221,13 @@ class AxivityFile:
 
         
         print(round(time.time() - start_time, 2), " seconds took to run the code")
+
+
+        
         return meta, data, gyro
+
+
+
+
+        
 

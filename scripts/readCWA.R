@@ -36,13 +36,12 @@ P = read_cwa("test_files/007_AxTest.cwa")
 
 df <- as.data.frame(P[["data"]])
 
-print(ncol(df))
 
 
 
 df.list <- as.list(df)
 
-df.lis
+df.list
 
 if (ncol(df) = 10) {
   gx <- df.list[['gx']]
